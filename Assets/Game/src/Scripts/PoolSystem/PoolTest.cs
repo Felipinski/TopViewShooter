@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PoolTest : MonoBehaviour
 {
-    public PoolManager pool;
+    public PoolManager poolManager;
 
     public void AddToPool(GameObject obj)
     {
-        pool.Add("Bullet", obj);
+        poolManager.Add("bullet", obj);
     }
 
     public void GetFromPool(string poolType)
     {
-        Instantiate(pool.GetFromPool(poolType));
+        Instantiate(poolManager.GetFromPool(poolType));
     }
 
     // Start is called before the first frame update
@@ -25,6 +25,10 @@ public class PoolTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            GameObject bullet = poolManager.GetFromPool("bullet");
+            bullet.transform.position = transform.position;
+        }
     }
 }

@@ -2,7 +2,12 @@
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
-{
+{   
+    [SerializeField]
+    private List<PoolConfig> poolConfigs = new List<PoolConfig>();
+    [SerializeField]
+    private Transform poolStorageTransform;
+
     private Dictionary<string, Pool> pools;
 
     void Awake()
@@ -20,11 +25,10 @@ public class PoolManager : MonoBehaviour
 
     private void InitializePool()
     {
-        Pool bulletPool = new Pool("Bullet", 10);
-        Pool enemyPool = new Pool("Enemy", 10);
-
-        pools.Add("Bullet", bulletPool);
-        pools.Add("Enemy", enemyPool);
+        foreach (PoolConfig poolConfig in poolConfigs)
+        {
+            pools.Add(poolConfig.Key, new Pool(poolConfig, poolStorageTransform));
+        }
     }
 
     public void Add(string poolType, GameObject obj)
@@ -34,6 +38,8 @@ public class PoolManager : MonoBehaviour
 
     public GameObject GetFromPool(string poolType)
     {
-        return pools[poolType].Get();
+        GameObject instance = pools[poolType].Get();
+        instance.transform.SetParent(null);
+        return instance;
     }
 }
