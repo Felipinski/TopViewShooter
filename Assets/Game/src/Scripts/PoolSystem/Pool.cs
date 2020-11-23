@@ -8,23 +8,23 @@ public class Pool
     private int maxCapacity;
     private Queue<GameObject> gameObjects;
     private GameObject prefabRef;
+    private Transform poolStorageTransform;
 
     public Pool(PoolConfig poolConfig, Transform poolStorageTransform)
     {
-        poolType = poolConfig.Key;
-        maxCapacity = poolConfig.MaxCapacity;
-        prefabRef = poolConfig.PrefabRef;
-        gameObjects = new Queue<GameObject>();
-        PreWarm(poolStorageTransform);
+        this.poolType = poolConfig.Key;
+        this.maxCapacity = poolConfig.MaxCapacity;
+        this.prefabRef = poolConfig.PrefabRef;
+        this.gameObjects = new Queue<GameObject>();
+        this.poolStorageTransform = poolStorageTransform;
+        PreWarm();
     }
 
-    private void PreWarm(Transform poolStorageTransform){
+    private void PreWarm(){
         for(int i=0;i<maxCapacity;i++)
         {
             GameObject instance = GameObject.Instantiate(prefabRef, poolStorageTransform);
-            instance.transform.SetParent(poolStorageTransform);
             Add(instance);
-            instance.SetActive(false);
         }
     }
 
@@ -34,13 +34,15 @@ public class Pool
 
         if(gameObjects.Count < maxCapacity)
         {
+            gameObject.SetActive(false);
             gameObjects.Enqueue(gameObject);
+            gameObject.transform.SetParent(poolStorageTransform);
         }
         else
         {
             Debug.Log(poolType + "Pool is full");
         }
-
+        
         Debug.Log(gameObjects.Count + "/" + maxCapacity);
     }
 

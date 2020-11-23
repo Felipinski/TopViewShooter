@@ -25,10 +25,10 @@ public class PoolTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            GameObject bullet = poolManager.GetFromPool("bullet");
-            bullet.transform.position = transform.position;
-        }
+        // if(Input.GetKeyDown(KeyCode.P))
+        // {
+        //     GameObject bullet = poolManager.GetFromPool("bullet");
+        //     bullet.transform.position = transform.position;
+        // }
     }
 }
