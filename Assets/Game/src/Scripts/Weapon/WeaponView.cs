@@ -17,11 +17,9 @@ public class WeaponView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject bullet = poolManager.GetFromPool("bullet");
-            bullet.transform.position = bulletOrigin.position;
-            bullet.transform.rotation = bulletOrigin.rotation;
+            GameObject bullet = poolManager.GetFromPool("bullet", bulletOrigin);
         }
     }
 }

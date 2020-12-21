@@ -49,7 +49,6 @@ public class Pool
     public GameObject Get()
     {   
         GameObject instance = gameObjects.Dequeue();
-        instance.SetActive(true);
         return instance;
     }
 }

@@ -40,6 +40,17 @@ public class PoolManager : MonoBehaviour
     {
         GameObject instance = pools[poolType].Get();
         instance.transform.SetParent(null);
+        instance.SetActive(true);
+        return instance;
+    }
+
+    public GameObject GetFromPool(string poolType, Transform transform)
+    {
+        GameObject instance = pools[poolType].Get();
+        instance.transform.rotation = transform.rotation;
+        instance.transform.position = transform.position;
+        instance.transform.SetParent(null);
+        instance.SetActive(true);
         return instance;
     }
 }

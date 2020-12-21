@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
-    
     private Rigidbody rigidBodyRef;
     public PoolManager poolManager;
 
@@ -21,7 +20,7 @@ public class BulletView : MonoBehaviour
 
     void OnEnable()
     {
-        rigidBodyRef.velocity = Vector3.forward * 100;
+        rigidBodyRef.velocity = transform.forward * 100;
         StartCoroutine(Timeout());
     }
 
@@ -33,7 +32,6 @@ public class BulletView : MonoBehaviour
     {
         if( other.CompareTag("Wall"))
         {
-            Debug.Log("BatinaBatata");
             poolManager.Add("bullet", gameObject);
         }
 
